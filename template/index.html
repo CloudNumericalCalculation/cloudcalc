@@ -1,0 +1,33 @@
+<div>
+	<h2 align="center">云端计算开放平台</h2>
+	<h2 align="right"><small>——人算不如运算</small></h2>
+	<div ng-hide="$root.site.announcement==''">
+		<span style="color:red;" class="glyphicon glyphicon-bullhorn"></span>
+		<span>{{$root.site.announcement}}</span>
+	</div>
+	<div align="right">
+	<div ng-if="!$root.user.login">
+		<form class="form-inline">
+			<div class="form-group">
+				<label for="username">用户名</label>
+				<input type="text" class="form-control input-sm" id="username" name="username" placeholder="Username">
+			</div>
+			<div class="form-group">
+				<label for="password">密码</label>
+				<input type="password" class="form-control input-sm" id="password" name="password" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-sm btn-success">登陆</button>
+			</div>
+		</form>
+	</div>
+	<div ng-if="$root.user.login">
+		<span>欢迎，{{$root.user.username}}</span>
+		<button class="btn btn-sm btn-primary" ui-sref="index">用户中心</button>
+		<button class="btn btn-sm btn-danger" ui-sref="error.404">退出登陆</button>
+	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2 col-sm-3 col-xs-12" ng-repeat="tool in tools"></div>
+	</div>
+</div>
