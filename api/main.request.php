@@ -4,27 +4,15 @@ require_once('globalSettings.conf.php');
 require_once('publicFunctions.func.php');
 session_start();
 
-$request = [];
-$action = [];
+$request = json_decode(file_get_contents('php://input', 'r'), true);
 
-function analyseAddress() {
-	global $action, $request;
-	$action = split('/', split('\?', substr($_SERVER['REQUEST_URI'], 5))[0]);
-	// var_dump(file_get_contents('php://input', 'r'));
-	$request = json_decode(file_get_contents('php://input', 'r'), true);
-	// foreach ($request as $key => $value) {
-	// 	$request[$key] = rawurlencode($value);
-	// }
-	// echo '1:::';var_dump($request);
+require('Toro.php');
+class user {
+	function get() {}
+	function post() {}
+	function put() {}
+	function delete() {}
 }
-function sendRequest() {
-	global $action;
-	if(count($action) !== 2 || $action[0] === '' || $action[1] === '') {
-		ERROR(ERROR_INPUT.'00', 'Request Error.');
-	}
-	$requestFile = $action[0].'.request.php';
-	if(file_exists($requestFile)) include($requestFile);
-	else ERROR(ERROR_INPUT.'01', 'Request Error.');
-}
-analyseAddress();
-sendRequest();
+Toro::serve(array(
+	'/api/user/login' => 'user'
+));
