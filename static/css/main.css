@@ -1,0 +1,9 @@
+textarea {
+	resize: none;
+}
+
+html, body {
+	background-color: #ECECFF;
+	font-size: 15px;
+	font-family: "微软雅黑", Arial;
+}
