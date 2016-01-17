@@ -52,20 +52,7 @@ function hasLogin() {
 	require_once('site.class.php');
 	return Site::getSessionUid();
 }
-/**
- * get current user's authority
- * @return int
- */
-function getCurrentAuthority() {
-	require_once('user.class.php');
-	$currentUser = new User;
-	$currentUser->uid = hasLogin();
-	$userData = json_decode(substr($currentUser->getData(), 4), true);
-	return $userData['authority'];
-}
-function checkAuthority($authority) {
-	return (getCurrentAuthority() & $authority).'' === $authority.'';
-}
+
 function randomPassword() {
 	$len = mt_rand(10, 20);
 	$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
