@@ -6,7 +6,7 @@ class User {
 	private $email;
 	private $level;
 
-	public function init($username, $password, $email, $level=0) {
+	public function init($username, $password, $email, $level = 0) {
 		$this->username = $username;
 		$this->password = $password;
 		$this->email = $email;
@@ -35,10 +35,11 @@ class User {
 		$response['avatar'] = '//gravatar.duoshuo.com/avatar/'.md5($response['email']);
 		return json_encode($response);
 	}
-	public function listData() {
+	public function listData($username = "") {
 		if(($sqlUser = @mysql_query('SELECT 
 				`uid`, `username`, `password`, `email`, `level`
-			FROM `user`;')) === false) return false;
+			FROM `user`
+			LIKE "%'.$this->userName.'%";')) === false) return false;
 		$response = [];
 		while(($item = @mysql_fetch_assoc($sqlUser)) !== false) {
 			$item['uid'] = (int)$item['uid'];
