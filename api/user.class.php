@@ -6,7 +6,7 @@ class User {
 	private $email;
 	private $level;
 
-	public function init($username, $password, $email, $level = 0) {
+	public function init($username, $password, $email, $level = 1) {
 		$this->username = $username;
 		$this->password = $password;
 		$this->email = $email;

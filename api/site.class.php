@@ -16,5 +16,3 @@ class Site {
 		$_SESSION['user']['lastActiveTime'] = 0;
 	}
 }
-
-echo (int)false;
