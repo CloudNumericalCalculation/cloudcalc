@@ -39,7 +39,7 @@ class User {
 		if(($sqlUser = @mysql_query('SELECT 
 				`uid`, `username`, `password`, `email`, `level`
 			FROM `user`
-			LIKE "%'.$this->userName.'%";')) === false) return false;
+			WHERE `username` LIKE "%'.$this->userName.'%";')) === false) return false;
 		$response = [];
 		while(($item = @mysql_fetch_assoc($sqlUser)) !== false) {
 			$item['uid'] = (int)$item['uid'];
@@ -53,7 +53,7 @@ class User {
 		if(($sqlUser = @mysql_query('INSERT INTO `user`
 				(`username`, `password`, `email`, `level`)
 			VALUES (
-				"'.$this->username.'",
+				"'.urlencode($this->username).'",
 				"'.$this->password.'",
 				"'.$this->email.'",
 				"'.$this->level.'"
