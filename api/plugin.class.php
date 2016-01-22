@@ -67,7 +67,7 @@ class Plugin{
 	}
 	public function modify(){
 		if(($sqlPlugin = @mysql_query(
-			'UPDATE `calculation`
+			'UPDATE `plugin`
 			SET 
 				`folder` = "'.urlencode($this->folder).'",
 				`cover` = "'.urlencode($this->cover).'",
