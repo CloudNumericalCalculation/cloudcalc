@@ -18,6 +18,7 @@ function getRequest($param) {
 }
 
 function handle($response) {
+	header('Content-type: application/json');
 	$code = substr($response, 0, 4);
 	$msg = substr($response, 4);
 	if($code === '0000') SUCCESS($msg);
