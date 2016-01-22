@@ -4,4 +4,3 @@ $conn_hostname = "localhost";
 $conn_database = "cloudcalc";
 $conn_username = "cloudcalc";
 $conn_password = "MntCBCfpHfDGWY7y";
-?>

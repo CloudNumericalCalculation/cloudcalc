@@ -7,4 +7,3 @@ or die('{"code":"0100","errorMsg":"failed connecting mysql"}');
 @mysql_select_db($conn_database)
 or die('{"code":"0100","errorMsg":"failed connecting database"}');
 mysql_query('SET NAMES UTF8');
-?>
