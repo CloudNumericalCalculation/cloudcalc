@@ -18,6 +18,7 @@ function getRequest($param) {
 }
 
 function handle($response) {
+	header('Content-type: application/json');
 	$code = substr($response, 0, 4);
 	$msg = substr($response, 4);
 	if($code === '0000') SUCCESS($msg);
@@ -28,7 +29,7 @@ function handle($response) {
 					$msg = 'System Error.';
 					break;
 				case ERROR_INPUT:
-					$msg = 'Param Error.';
+					$msg = '请检查输入！';
 					break;
 				case ERROR_PERMISSION:
 					$msg = 'Permission Denied.';
@@ -43,16 +44,6 @@ function handle($response) {
 	}
 }
 
-/**
- * get current logged user's uid
- * 0 represents no user logged in
- * @return int uid
- */
-function hasLogin() {
-	require_once('site.class.php');
-	return Site::getSessionUid();
-}
-
 function randomPassword() {
 	$len = mt_rand(10, 20);
 	$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -61,4 +52,14 @@ function randomPassword() {
 		$pwd .= $characters[mt_rand(0, strlen($characters)-1)];
 	}
 	return $pwd;
+}
+
+function checkAuthority($level) {
+	require_once('site.class.php');
+	$uid = Site::getSessionUid();
+	if($uid == 0) return false;
+	$currentUser = new User;
+	$currentUser->uid = $uid;
+	$response = json_decode(substr($currentUser->getData(), 4), true);
+	return $response['level'] >= $level;
 }

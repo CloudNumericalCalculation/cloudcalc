@@ -3,8 +3,8 @@ class User {
 	public $uid;
 	public $username;
 	private $password;
-	private $email;
-	private $level;
+	public $email;
+	public $level;
 
 	public function init($username, $password, $email, $level = 1) {
 		$this->username = $username;
@@ -28,10 +28,11 @@ class User {
 			FROM `user`
 			WHERE `uid` = "'.$this->uid.'";')) === false) return false;
 		if(($response = @mysql_fetch_assoc($sqlUser)) === false) return false;
+		$response['uid'] = (int)$response['uid'];
 		$this->username = $response['username'];
 		$this->password = $response['password'];
 		$this->email = $response['email'];
-		$this->level = $response['level'];
+		$this->level = $response['level'] = (int)$response['level'];
 		$response['avatar'] = '//gravatar.duoshuo.com/avatar/'.md5($response['email']);
 		return json_encode($response);
 	}
@@ -39,13 +40,15 @@ class User {
 		if(($sqlUser = @mysql_query('SELECT 
 				`uid`, `username`, `password`, `email`, `level`
 			FROM `user`
-			LIKE "%'.$this->userName.'%";')) === false) return false;
+			WHERE `username` LIKE "%'.$username.'%";')) === false) return false;
 		$response = [];
 		while(($item = @mysql_fetch_assoc($sqlUser)) !== false) {
 			$item['uid'] = (int)$item['uid'];
+			$item['level'] = (int)$item['level'];
 			$item['avatar'] = '//gravatar.duoshuo.com/avatar/'.md5($item['email']);
 			array_push($response, $item);
 		}
+		if($response == null) return '[]';
 		// var_dump($response);
 		return json_encode($response);
 	}
