@@ -15,6 +15,7 @@ switch ($action[1]) {
 		break;
 	
 	case 'new':
+		if(!checkAuthority(9)) handle(ERROR_PERMISSION.'00');
 		$currentPlugin = new Plugin;
 		$currentPlugin->init(getRequest('uid'), getRequest('folder'), getRequest('cover'), getRequest('name'), getRequest('author'), getRequest('git'));
 		if(!$currentPlugin->checkVariables()) handle(ERROR_INPUT.'01');
@@ -24,6 +25,7 @@ switch ($action[1]) {
 		break;
 	
 	case 'renew':
+		if(!checkAuthority(9)) handle(ERROR_PERMISSION.'00');
 		$currentPlugin = new Plugin;
 		$currentPlugin->pid = getRequest('pid');
 		$response = json_decode($currentPlugin->getData(), true);

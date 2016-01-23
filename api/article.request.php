@@ -7,7 +7,9 @@ switch ($action[1]) {
 		if(!preg_match('/^[0-9]+$/', $currentArticle->aid)) handle(ERROR_INPUT.'01');
 		$response = $currentArticle->getData();
 		if($response === false) handle(ERROR_SYSTEM.'00'.'不存在！');
-		handle('0000'.$response);
+		$response = json_decode($response, true);
+		if(!checkAuthority(9) && !$response['visibility']) handle(ERROR_SYSTEM.'00'.'不存在！');
+		handle('0000'.json_encode($response));
 		break;
 
 	case 'list':
@@ -15,6 +17,7 @@ switch ($action[1]) {
 		break;
 	
 	case 'new':
+		if(!checkAuthority(9)) handle(ERROR_SYSTEM.'00');
 		$currentArticle = new Article;
 		$currentArticle->init(getRequest('title'), getRequest('content'), (int)getRequest('visibility'), (int)getRequest('notice'));
 		if(!$currentArticle->checkVariables()) handle(ERROR_INPUT.'01');
@@ -24,6 +27,7 @@ switch ($action[1]) {
 		break;
 	
 	case 'renew':
+		if(!checkAuthority(9)) handle(ERROR_SYSTEM.'00');
 		$currentArticle = new Article;
 		$currentArticle->aid = getRequest('aid');
 		$response = json_decode($currentArticle->getData(), true);

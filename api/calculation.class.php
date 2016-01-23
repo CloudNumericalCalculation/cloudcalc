@@ -60,7 +60,12 @@ class Calculation{
 			$item['status'] = (int)$item['status'];
 			$item['input'] = urldecode($item['input']);
 			$item['result'] = urldecode($item['result']);
-			array_push($response, $item);
+			if($item['uid'] == $uid || checkAuthority(9)) {
+				array_push($response, $item);
+			}
+			if($item['public'] && $item['password'] == getRequest('password')) {
+				array_push($response, $item);
+			}
 		}
 		return json_encode($response);
 	}

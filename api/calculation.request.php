@@ -7,7 +7,20 @@ switch ($action[1]) {
 		if(!preg_match('/^[0-9]+$/', $currentCalculation->cid)) handle(ERROR_INPUT.'01');
 		$response = $currentCalculation->getData();
 		if($response === false) handle(ERROR_SYSTEM.'00'.'不存在！');
-		handle('0000'.$response);
+		$response = json_decode($response, true);
+		require_once('site.class.php');
+		$uid = Site::getSessionUid();
+		if($response['uid'] == $uid || checkAuthority(9)) {
+			handle('0000'.json_encode($response));
+		}
+		if(!$response['public']) handle(ERROR_PERMISSION.'01'.'该用户没有公开计算内容！');
+		if($response['public'] && $response['password'] == getRequest('password')) {
+			handle('0000'.json_encode($response));
+		}
+		else {
+			handle(ERROR_PERMISSION.'02'.'查看密码错误，请重新输入！');
+		}
+		handle(ERROR_PERMISSION.'00');
 		break;
 
 	case 'list':
@@ -39,9 +52,13 @@ switch ($action[1]) {
 		break;
 	
 	case 'renew':
-		$currentCalculation = new Plugin;
-		$currentCalculation->pid = getRequest('pid');
+		$currentCalculation = new Calculation;
+		$currentCalculation->cid = getRequest('cid');
 		$response = json_decode($currentCalculation->getData(), true);
+		require_once('site.class.php');
+		$uid = Site::getSessionUid();
+		if($uid == 0) handle(ERROR_PERMISSION.'00'.'请先登陆！');
+		if($response['uid'] != $uid && !checkAuthority(9)) handle(ERROR_PERMISSION.'00');
 		$priority = $response['priority'];
 		if(checkAuthority(9)) $priority = getRequest('priority');
 		$currentCalculation->init($response['pid'], $response['uid'], $priority, (int)getRequest('public'), getRequest('password'), $response['status'], $response['input']);

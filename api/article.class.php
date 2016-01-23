@@ -41,6 +41,7 @@ class Article{
 			$item['content'] = urldecode($item['content']);
 			$item['visibility'] = (bool)$item['visibility'];
 			$item['notice'] = (bool)$item['notice'];
+			if(!checkAuthority(9) && !$item['visibility']) continue;
 			array_push($response, $item);
 		}
 		return json_encode($response);

@@ -45,6 +45,7 @@ class User {
 		while(($item = @mysql_fetch_assoc($sqlUser)) !== false) {
 			$item['uid'] = (int)$item['uid'];
 			$item['level'] = (int)$item['level'];
+			unset($item['password']);
 			$item['avatar'] = '//gravatar.duoshuo.com/avatar/'.md5($item['email']);
 			array_push($response, $item);
 		}

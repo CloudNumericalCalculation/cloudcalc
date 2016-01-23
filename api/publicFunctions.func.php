@@ -61,6 +61,6 @@ function checkAuthority($level) {
 	if($uid == 0) return false;
 	$currentUser = new User;
 	$currentUser->uid = $uid;
-	$response = json_decode(substr($currentUser->getData(), 4), true);
+	$response = json_decode($currentUser->getData(), true);
 	return $response['level'] >= $level;
 }
