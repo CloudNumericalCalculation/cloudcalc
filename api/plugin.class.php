@@ -18,6 +18,7 @@ class Plugin{
 	}
 	public function checkVariables() {
 		if(!preg_match('/^[0-9]+$/', $this->uid)) return false;
+		return true;
 	}
 	public function getData(){
 		if(($sqlPlugin = @mysql_query(
@@ -25,19 +26,20 @@ class Plugin{
 			FROM `plugin`
 			WHERE `pid` = "'.$this->pid.'";')) === false) return false;
 		if(($response = @mysql_fetch_assoc($sqlPlugin)) === false) return false;
-		$this->uid = (int)$response['uid'];
-		$this->folder = urldecode($response['folder']);
-		$this->cover = urldecode($response['cover']);
-		$this->name = urldecode($response['name']);
-		$this->author = urldecode($response['author']);
-		$this->git = urldecode($response['git']);
+		$response['pid'] = (int)$response['pid'];
+		$this->uid = $response['uid']= (int)$response['uid'];
+		$this->folder = $response['folder'] = urldecode($response['folder']);
+		$this->cover = $response['cover'] = urldecode($response['cover']);
+		$this->name = $response['name'] = urldecode($response['name']);
+		$this->author = $response['author'] = urldecode($response['author']);
+		$this->git = $response['git'] = urldecode($response['git']);
 		return json_encode($response);
 	}
 	public function listData($uid=""){
 		if(($sqlPlugin = @mysql_query(
 			'SELECT `pid`, `uid`, `folder`, `cover`, `name`, `author`, `git`
 			FROM `plugin`
-			WHERE `uid` LIKE "%'.$this->uid.'%";')) === false) return false;
+			WHERE `uid` LIKE "%'.$uid.'%";')) === false) return false;
 		$response = [];
 		while(($item = @mysql_fetch_assoc($sqlPlugin)) !== false) {
 			$item['pid'] = (int)$item['pid'];

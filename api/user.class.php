@@ -3,8 +3,8 @@ class User {
 	public $uid;
 	public $username;
 	private $password;
-	public $email;
-	public $level;
+	private $email;
+	private $level;
 
 	public function init($username, $password, $email, $level = 1) {
 		$this->username = $username;
@@ -48,7 +48,6 @@ class User {
 			$item['avatar'] = '//gravatar.duoshuo.com/avatar/'.md5($item['email']);
 			array_push($response, $item);
 		}
-		if($response == null) return '[]';
 		// var_dump($response);
 		return json_encode($response);
 	}

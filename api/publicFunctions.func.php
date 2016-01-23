@@ -56,6 +56,7 @@ function randomPassword() {
 
 function checkAuthority($level) {
 	require_once('site.class.php');
+	require_once('user.class.php');
 	$uid = Site::getSessionUid();
 	if($uid == 0) return false;
 	$currentUser = new User;

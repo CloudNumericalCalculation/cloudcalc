@@ -22,10 +22,11 @@ class Calculation{
 	public function checkVariables() {
 		if(!preg_match('/^[0-9]+$/', $this->pid)) return false;
 		if(!preg_match('/^[0-9]+$/', $this->uid)) return false;
-		if(!preg_match('/^[0-9]+$/', $this->priority)) return false;
-		if(!preg_match('/^[0-1]+$/', $this->public)) return false;
-		if(!preg_match('/^[0-9a-zA-Z]$/', $this->password)) return false;
-		if(!preg_match('/^[0-5]+$/', $this->status)) return false;
+		if(!preg_match('/^[0-9]$/', $this->priority)) return false;
+		if(!preg_match('/^[0-1]$/', $this->public)) return false;
+		if(!preg_match('/^[0-9a-zA-Z]{0,30}$/', $this->password)) return false;
+		if(!preg_match('/^[0-5]$/', $this->status)) return false;
+		return true;
 	}
 	public function getData(){
 		if(($sqlCalculation = @mysql_query(
@@ -33,28 +34,29 @@ class Calculation{
 			FROM `calculation`
 			WHERE `cid` = "'.$this->cid.'";')) === false) return false;
 		if(($response = @mysql_fetch_assoc($sqlCalculation)) === false) return false;
-		$this->pid = (int)$response['pid'];
-		$this->uid = (int)$response['uid'];
-		$this->priority = (int)$response['priority'];
-		$this->public = (int)$response['public'];
+		$response['cid'] = (int)$response['cid'];
+		$this->pid = $response['pid'] = (int)$response['pid'];
+		$this->uid = $response['uid'] = (int)$response['uid'];
+		$this->priority = $response['priority'] = (int)$response['priority'];
+		$this->public = $response['public'] = (bool)$response['public'];
 		$this->password = $response['password'];
-		$this->status = (int)$response['status'];
-		$this->input = urldecode($response['input']);
-		$this->result = urldecode($response['result']);
+		$this->status = $response['status'] = (int)$response['status'];
+		$this->input = $response['input'] = urldecode($response['input']);
+		$this->result = $response['result'] = urldecode($response['result']);
 		return json_encode($response);
 	}
 	public function listData($uid=""){
 		if(($sqlCalculation = @mysql_query(
 			'SELECT `cid`, `pid`, `uid`, `priority`, `public`, `password`, `status`, `input`, `result`
 			FROM `calculation`
-			WHERE `uid` LIKE "%'.$this->uid.'%";')) === false) return false;
+			WHERE `uid` LIKE "%'.$uid.'%";')) === false) return false;
 		$response = [];
 		while(($item = @mysql_fetch_assoc($sqlCalculation)) !== false) {
 			$item['cid'] = (int)$item['cid'];
 			$item['pid'] = (int)$item['pid'];
 			$item['uid'] = (int)$item['uid'];
 			$item['priority'] = (int)$item['priority'];
-			$item['public'] = (int)$item['public'];
+			$item['public'] = (bool)$item['public'];
 			$item['status'] = (int)$item['status'];
 			$item['input'] = urldecode($item['input']);
 			$item['result'] = urldecode($item['result']);

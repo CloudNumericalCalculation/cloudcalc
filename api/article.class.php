@@ -6,7 +6,7 @@ class Article{
 	private $visibility;
 	private $notice;
 
-	public function init($title, $content, $visibility, $notice) {
+	public function init($title, $content, $visibility=0, $notice=0) {
 		$this->title = $title;
 		$this->content = $content;
 		$this->visibility = $visibility;
@@ -15,6 +15,7 @@ class Article{
 	public function checkVariables() {
 		if(!preg_match('/^[0-1]$/', $this->visibility)) return false;
 		if(!preg_match('/^[0-1]$/', $this->notice)) return false;
+		return true;
 	}
 	public function getData(){
 		if(($sqlArticle = @mysql_query(
@@ -22,10 +23,11 @@ class Article{
 			FROM `article`
 			WHERE `aid` = "'.$this->aid.'";')) === false) return false;
 		if(($response = @mysql_fetch_assoc($sqlArticle)) === false) return false;
-		$this->title = urldecode($response['title']);
-		$this->content = urldecode($response['content']);
-		$this->visibility = (int)$response['visibility'];
-		$this->notice = (int)$response['notice'];
+		$response['aid'] = (int)$response['aid'];
+		$this->title = $response['title'] = urldecode($response['title']);
+		$this->content = $response['content'] = urldecode($response['content']);
+		$this->visibility = $response['visibility'] = (bool)$response['visibility'];
+		$this->notice = $response['notice'] = (bool)$response['notice'];
 		return json_encode($response);
 	}
 	public function listData(){
@@ -37,8 +39,8 @@ class Article{
 			$item['aid'] = (int)$item['aid'];
 			$item['title'] = urldecode($item['title']);
 			$item['content'] = urldecode($item['content']);
-			$item['visibility'] = (int)$item['visibility'];
-			$item['notice'] = (int)$item['notice'];
+			$item['visibility'] = (bool)$item['visibility'];
+			$item['notice'] = (bool)$item['notice'];
 			array_push($response, $item);
 		}
 		return json_encode($response);

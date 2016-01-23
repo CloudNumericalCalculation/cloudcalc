@@ -36,7 +36,7 @@ switch ($action[1]) {
 		$currentUser->uid = getRequest('uid');
 		if(!preg_match('/^[0-9]+$/', $currentUser->uid)) handle(ERROR_INPUT.'01');
 		$response = $currentUser->getData();
-		if($response === false) handle(ERROR_SYSTEM.'00');
+		if($response === false) handle(ERROR_SYSTEM.'00'.'不存在！');
 		handle('0000'.$response);
 		break;
 	case 'list':
@@ -64,7 +64,7 @@ switch ($action[1]) {
 		$password_new = getRequest('password_new');
 		if($password_new === '') $password_new = getRequest('password_old');
 		$password_new = password_hash(md5($password_new), PASSWORD_BCRYPT);
-		$currentUser->init($response['username'], $password_new, $currentUser->email, $currentUser->level);
+		$currentUser->init($response['username'], $password_new, $response['email'], $response['level']);
 		if(!$currentUser->checkVariables()) handle(ERROR_INPUT.'01');
 		$response = $currentUser->modify();
 		if($response === false) handle(ERROR_SYSTEM.'00');
