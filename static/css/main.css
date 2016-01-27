@@ -3,7 +3,58 @@ textarea {
 }
 
 html, body {
-	background-color: #ECECFF;
+	background-color: whitesmoke;
 	font-size: 15px;
 	font-family: "微软雅黑", Arial;
+}
+
+.plugin {
+	display: inline;
+}
+.clr {
+	clear: both;
+}
+.plugin .plugin-box {
+	position: relative;
+	/* DO NOT SET top OR left HERE */
+	float: left;
+	width: 235px;
+	height: 235px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border: 1px solid gray;
+	text-decoration: none;
+	color: black;
+}
+.plugin .plugin-box:hover {
+	border: none;
+	cursor: pointer;
+	background-color: #337ab7;
+	color: white;
+}
+.plugin .plugin-box:active {
+	border: none;
+	/*background-color: #104E8B;*/
+	height: 215px;
+	width: 215px;
+	margin: 10px;
+	margin-right: 20px;
+}
+.plugin .plugin-box:nth-child(4n) {
+	margin-right: 0px;
+}
+.plugin-box .plugin-title {
+	padding: 0 30px;
+	text-align: center;
+	font-size: 30px;
+}
+.plugin-box .plugin-title table, tr, td {
+	height: 210px;
+}
+.plugin-box .plugin-author {
+	position: absolute;
+	/* IT'S FATHER HAS BEEN SET `relative` */
+	bottom: 5px;
+	right: 10px;
+	color: gray;
 }

@@ -13,11 +13,14 @@
 		<script src="//library.guessever.me/angularjs/1.4.2/angular-route.min.js"></script>
 		<script src="//library.guessever.me/ui-router/0.2.15/release/angular-ui-router.min.js"></script>
 		<script src="//library.guessever.me/ui-bootstrap/0.13.3/ui-bootstrap.min.js"></script>
+		<script src="//library.guessever.me/md5-js/md5.min.js"></script>
 		<script src="static/js/main.js.php"></script>
 		<link rel="stylesheet" type="text/css" href="static/css/main.css">
 	</head>
 	<body>
-		<div style="max-width:970px; margin:0 auto;" ui-view></div>
-		<div ng-include="'/template/footer.html'"></div>
+		<div style="max-width:970px; margin:0 auto;">
+			<div ui-view></div>
+			<div ng-include="'/template/footer.html'"></div>
+		</div>
 	</body>
 </html>
