@@ -7,11 +7,11 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 		templateUrl: '/template/index.html',
 		controller: 'index'
 	}).
-	// state('tool', {
-	// 	url: '/tools/:toolId',
-	// 	templateUrl: '/template/tool.html',
-	// 	controller: 'tool'
-	// }).
+	state('tool', {
+		url: '/tool/:toolId',
+		templateUrl: '/template/tool.html',
+		controller: 'tool'
+	}).
 	state('error', {
 		url: '/error',
 		templateUrl: '/template/error/frame.html'
