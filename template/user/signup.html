@@ -1,0 +1,11 @@
+<h4 align="center">用户注册</h4>
+<div class="sign-box">
+<form align="center" onsubmit="return false;">
+	<p><input type="text" class="form-control" placeholder="用户名" ng-model="user.username" autofocus></p>
+	<p><input type="password" class="form-control" placeholder="密码" ng-model="user.password"></p>
+	<p><input type="password" class="form-control" placeholder="请再次输入密码" ng-model="user.password_confirm"></p>
+	<p><input type="text" class="form-control" placeholder="电子邮件（方便找回密码，不可更改）" ng-model="user.email"></p>
+	<p><button type="submit" class="btn btn-success" ng-click="signup()">注册</button></p>
+	<p><a ui-sref="user.signup">还没有账号，点此登陆</a></p>
+</form>
+</div>

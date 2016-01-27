@@ -1,0 +1,30 @@
+<table class="table">
+	<tr>
+		<td rowspan="6" align="center">
+			<img ng-src="{{current.avatar}}?s=200">
+			<p><a href="//en.gravatar.com/" target="_blank">Want to change photo?</a></p>
+		</td>
+		<td>用户名</td>
+		<td>{{current.username}}</td>
+	</tr>
+	<tr>
+		<td>电子邮箱</td>
+		<td>{{current.email}}</td>
+	</tr>
+	<tr>
+		<td>原密码</td>
+		<td><input type="password" class="form-control input-sm" ng-model="password_old"></td>
+	</tr>
+	<tr>
+		<td>新密码</td>
+		<td><input type="password" class="form-control input-sm" ng-model="password_new"></td>
+	</tr>
+	<tr>
+		<td>确认密码</td>
+		<td><input type="password" class="form-control input-sm" ng-model="password_new_confirm"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><button class="btn btn-success" ng-click="changepwd()">确认修改密码</button></td>
+	</tr>
+</table>

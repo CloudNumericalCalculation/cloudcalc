@@ -16,6 +16,12 @@ app.run(['$rootScope', '$http', '$timeout', '$state', function($rootScope, $http
 			if(response['code'] === '0000') {
 				$rootScope.user = response['response'];
 			}
+			if(!$rootScope.user.signin && $state.includes('user.center')) {
+				$state.go('index');
+			}
+			if($rootScope.user.level !== 9 && $state.includes('admin')) {
+				$state.go('index');
+			}
 		}).error(function () {
 			alert('Network Error!');
 		});

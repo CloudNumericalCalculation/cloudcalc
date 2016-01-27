@@ -1,3 +1,9 @@
 app.controller('index', ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
-	// $rootScope.$broadcast('refreshPluginList');
+	$scope.signout = function () {
+		$http.get('/api/user/signout').success(function (response) {
+			if(response['code'] === '0000') {
+				$rootScope.$broadcast('refreshUserData');
+			}
+		});
+	}
 }]);

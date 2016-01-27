@@ -48,7 +48,7 @@ html, body {
 	text-align: center;
 	font-size: 30px;
 }
-.plugin-box .plugin-title table, tr, td {
+.plugin-box .plugin-title tr{
 	height: 210px;
 }
 .plugin-box .plugin-author {
@@ -79,4 +79,10 @@ html, body {
 	padding-left: 20px;
 	white-space: normal !important;
 	overflow: auto;
+}
+
+.sign-box {
+	/*border: 1px solid red;*/
+	width: 400px;
+	margin-left: 285px;
 }

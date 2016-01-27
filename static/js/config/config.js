@@ -7,6 +7,44 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 		templateUrl: '/template/index.html',
 		controller: 'index'
 	}).
+	state('user', {
+		url: '/user'
+	}).
+	state('user.signin', {
+		url: '/signin',
+		views: {'@': {
+			templateUrl: '/template/user/signin.html',
+			controller: 'userSignin'
+		}}
+	}).
+	state('user.signup', {
+		url: '/signup',
+		views: {'@': {
+			templateUrl: '/template/user/signup.html',
+			controller: 'userSignup'
+		}}
+	}).
+	state('user.center', {
+		url: '/center/:userId',
+		views: {'@': {
+			templateUrl: '/template/user/center.html',
+			controller: 'userCenter',
+			resolve: {
+				current: ['$http', '$stateParams', '$state', function ($http, $stateParams, $state) {
+					console.log($stateParams.userId);
+					return $http.post('/api/user/show', {uid: $stateParams.userId}).then(function (response) {
+						console.log(response);
+						if(response['data']['code'] === '0000') {
+							return response['data']['response'];
+						}
+						else {
+							$state.go('error.404');
+						}
+					});
+				}]
+			}
+		}}
+	}).
 	state('tool', {
 		url: '/tool/:toolId',
 		templateUrl: '/template/tool.html',
