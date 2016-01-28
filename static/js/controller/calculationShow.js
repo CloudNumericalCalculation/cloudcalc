@@ -1,5 +1,35 @@
-app.controller('calculationShow', ['$scope', '$rootScope', '$http', 'current', function($scope, $rootScope, $http, current){
-	$scope.current = current;
+app.controller('calculationShow', ['$scope', '$rootScope', '$http', '$timeout', 'cid', function($scope, $rootScope, $http, $timeout, cid){
+	var fetchData = function (password) {
+		var data = {
+			cid: cid,
+			password: $scope.password
+		}
+		$http.post('/api/calculation/show', data).success(function (response) {
+			// console.log(response);
+			if(response['code'] === '0000') {
+				$scope.pageStatus = 0;
+				$scope.current = response['response'];
+			}
+			else if(response['code'] === '0202') {
+				$scope.pageStatus = 1;
+				$scope.errorMsg = response['errorMsg'];
+				$scope.password = '';
+			}
+			else {
+				$scope.pageStatus = 2;
+				$scope.errorMsg = response['errorMsg'];
+			}
+		});
+	}
+	$scope.pageStatus = 2;
+	$scope.errorMsg = '正在载入......';
+	$scope.password = '';
+	$timeout(fetchData, 0);
+
+	$scope.show = function () {
+		$timeout(fetchData, 0);
+	}
+
 	$scope.save = function () {
 		var data = {
 			cid: $scope.current.cid,

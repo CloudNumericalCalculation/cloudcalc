@@ -61,17 +61,8 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 			templateUrl: '/template/calculation/show.html',
 			controller: 'calculationShow',
 			resolve: {
-				current: ['$http', '$stateParams', '$state', function ($http, $stateParams, $state) {
-					// console.log($stateParams.calcId);
-					return $http.post('/api/calculation/show', {cid: $stateParams.calcId}).then(function (response) {
-						// console.log(response);
-						if(response['data']['code'] === '0000') {
-							return response['data']['response'];
-						}
-						else {
-							$state.go('error.404');
-						}
-					});
+				cid: ['$stateParams', function ($stateParams) {
+					return $stateParams.calcId;
 				}]
 			}
 		}}

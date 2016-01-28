@@ -1,3 +1,15 @@
+<div ng-show="pageStatus==2">
+	<h4 align="center">{{errorMsg}}</h4>
+</div>
+<div ng-show="pageStatus==1">
+	<div class="sign-box"><form onsubmit="return false;">
+		<p>请输入密码查看该结果</p>
+		<input class="form-control input-sm" ng-model="password" placeholder="在此输入密码" autofocus>
+		<p align="right" class="text-danger">{{errorMsg}}</p>
+		<p align="center"><button type="submit" class="btn btn-primary" ng-click="show()">查看结果</button>
+	</form></div>
+</div>
+<div ng-show="pageStatus==0">
 <h3>
 	<span>CID [ {{current.cid}} ]</span>
 	<small>By <a ui-sref="tool({toolId: current.pid})">{{current.pluginname}}</a></small>
@@ -18,4 +30,5 @@
 	<p ng-show="$root.user.level===9">优先顺序：<input type="number" class="form-control input-sm" ng-model="current.priority"></p>
 	<p><button type="submit" class="btn btn-success btn-xs" ng-click="save()">保存更改</button></p>
 </form></div>
+</div>
 </div>
