@@ -11,10 +11,11 @@
 	</span>
 	<span ng-show="$root.user.signin" ng-controller="index">
 		<a ui-sref="user.center({userId: $root.user.uid})">用户中心</a> |
-		<a ui-sref="calculation.list">我的运算记录</a>
+		<a ui-sref="calculation">我的运算记录</a>
 		<span ng-show="$root.user.level === 9">
 			| <a ui-sref="admin.user">用户管理</a>
 			| <a ui-sref="admin.plugin">插件管理</a>
+			| <a ui-sref="admin.article">公告管理</a>
 		</span>
 		| <a href="" ng-click="signout()">登出</a>
 	</span>

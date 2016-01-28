@@ -1,0 +1,54 @@
+calculation.list
+{{calculations}}
+<table class="table table-bordered">
+	<tr ng-hide="1">
+		<th></th>
+		<th></th>
+		<th>
+			<input type="text">
+		</th>
+		<th>
+			<select>
+				<option>TRUE</option>
+				<option>FALSE</option>
+			</select>
+		</th>
+		<th>
+			<select>
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+			</select>
+		</th>
+		<th></th>
+	</tr>
+	<tr>
+		<th>#</th>
+		<th>插件</th>
+		<th>用户</th>
+		<th>公开</th>
+		<th>状态</th>
+		<th>操作</th>
+	</tr>
+	<tr ng-repeat="calculation in calculations">
+		<td>{{calculation.cid}}</td>
+		<td><a ui-sref="tool({toolId: calculation.pid})">{{calculation.pid}}</a></td>
+		<td>{{calculation.uid}}</td>
+		<td>
+			<span ng-show="calculation.public" class="text-success">
+				<span class="glyphicon glyphicon-ok"></span>
+			</span>
+			<span ng-show="calculation.public && calculation.password !== ''" class="text-warning">
+				<span class="glyphicon glyphicon-lock"></span>
+				<span>{{calculation.password}}</span>
+			</span>
+			<span ng-show="!calculation.public" class="text-danger">
+				<span class="glyphicon glyphicon-remove"></span>
+			</span>
+		</td>
+		<td>{{calculation.status}}</td>
+		<td><a ui-sref="calculation.show({calcId: calculation.cid})">Info</a></td>
+	</tr>
+</table>

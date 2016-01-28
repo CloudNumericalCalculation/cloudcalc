@@ -31,9 +31,9 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 			controller: 'userCenter',
 			resolve: {
 				current: ['$http', '$stateParams', '$state', function ($http, $stateParams, $state) {
-					console.log($stateParams.userId);
+					// console.log($stateParams.userId);
 					return $http.post('/api/user/show', {uid: $stateParams.userId}).then(function (response) {
-						console.log(response);
+						// console.log(response);
 						if(response['data']['code'] === '0000') {
 							return response['data']['response'];
 						}
@@ -49,6 +49,42 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 		url: '/tool/:toolId',
 		templateUrl: '/template/tool.html',
 		controller: 'tool'
+	}).
+	state('calculation', {
+		url: '/calculation',
+		templateUrl: '/template/calculation/list.html',
+		controller: 'calculationList',
+		resolve: {
+			currentUid: ['$rootScope', '$http', function ($rootScope, $http) {
+				return $http.get('/api/user/data').then(function (response) {
+					if(response['data']['code'] === '0000') {
+						return response['data']['response']['uid'];
+					}
+					else return 0;
+				});
+			}]
+		}
+	}).
+	state('calculation.show', {
+		url: '/:calcId',
+		views: {'@': {
+			templateUrl: '/template/calculation/show.html',
+			controller: 'calculationShow',
+			resolve: {
+				current: ['$http', '$stateParams', '$state', function ($http, $stateParams, $state) {
+					// console.log($stateParams.calcId);
+					return $http.post('/api/calculation/show', {cid: $stateParams.calcId}).then(function (response) {
+						// console.log(response);
+						if(response['data']['code'] === '0000') {
+							return response['data']['response'];
+						}
+						else {
+							$state.go('error.404');
+						}
+					});
+				}]
+			}
+		}}
 	}).
 	state('error', {
 		url: '/error',

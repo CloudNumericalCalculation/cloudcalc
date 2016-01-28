@@ -1,5 +1,6 @@
 app.controller('userCenter', ['$scope', '$rootScope', '$http', 'current', function($scope, $rootScope, $http, current){
 	$scope.current = current;
+	$rootScope.$broadcast('refreshUserData');
 	$scope.changepwd = function () {
 		if($scope.password_new !== $scope.password_new_confirm) {
 			alert('两次输入的密码不一样！');
