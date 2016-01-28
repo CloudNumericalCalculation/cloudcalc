@@ -86,3 +86,10 @@ html, body {
 	width: 400px;
 	margin-left: 285px;
 }
+
+.show-box {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 10px;
+	margin-bottom: 20px;
+}

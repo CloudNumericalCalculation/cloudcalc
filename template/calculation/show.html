@@ -1,1 +1,21 @@
-calculation.show: {{current}}
+<h3>
+	<span>CID [ {{current.cid}} ]</span>
+	<small>By <a ui-sref="tool({toolId: current.pid})">{{current.pluginname}}</a></small>
+	<small>From {{current.username}}</small>
+</h3>
+<label>Input</label>
+<div class="show-box">{{current.input}}</div>
+<p class="pull-right" ng-class="{'text-info': current.status===0,'text-primary': current.status===1,'text-success': current.status===2,'text-warning': current.status===3,'text-muted': current.status===4,'text-danger': current.status===5}">{{current.statusStr}}</p>
+<label>Result</label>
+<div class="show-box">
+	<markdown content="current.result"></markdown>
+</div>
+<div ng-show="$root.user.uid===current.uid || $root.user.level===9">
+<label>Share</label>
+<div class="show-box"><form onsubmit="return false" class="form-inline">
+	<p>分享结果：<input type="checkbox" ng-model="current.public"></p>
+	<p ng-show="current.public">密码保护：<input type="text" class="form-control input-sm" size="40" ng-model="current.password" placeholder="请在此设置密码，空表示完全公开"> <small>**不超过30位的英文（a-z, A-Z）和数字（0-9），采用明文储存**</small></p>
+	<p ng-show="$root.user.level===9">优先顺序：<input type="number" class="form-control input-sm" ng-model="current.priority"></p>
+	<p><button type="submit" class="btn btn-success btn-xs" ng-click="save()">保存更改</button></p>
+</form></div>
+</div>

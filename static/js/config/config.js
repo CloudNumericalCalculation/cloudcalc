@@ -53,17 +53,7 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 	state('calculation', {
 		url: '/calculation',
 		templateUrl: '/template/calculation/list.html',
-		controller: 'calculationList',
-		resolve: {
-			currentUid: ['$rootScope', '$http', function ($rootScope, $http) {
-				return $http.get('/api/user/data').then(function (response) {
-					if(response['data']['code'] === '0000') {
-						return response['data']['response']['uid'];
-					}
-					else return 0;
-				});
-			}]
-		}
+		controller: 'calculationList'
 	}).
 	state('calculation.show', {
 		url: '/:calcId',

@@ -24,7 +24,7 @@ switch ($action[1]) {
 		break;
 
 	case 'list':
-		handle('0000'.Calculation::listData(getRequest('uid')));
+		handle('0000'.Calculation::listData((int)getRequest('user'), (int)getRequest('public'), (int)getRequest('status')));
 		break;
 	
 	case 'new':
@@ -58,9 +58,9 @@ switch ($action[1]) {
 		require_once('site.class.php');
 		$uid = Site::getSessionUid();
 		if($uid == 0) handle(ERROR_PERMISSION.'00'.'请先登陆！');
-		if($response['uid'] != $uid && !checkAuthority(9)) handle(ERROR_PERMISSION.'00');
+		if($response['uid'] !== $uid && !checkAuthority(9)) handle(ERROR_PERMISSION.'00');
 		$priority = $response['priority'];
-		if(checkAuthority(9)) $priority = getRequest('priority');
+		if(checkAuthority(9) && getRequest('priority') !== '') $priority = getRequest('priority');
 		$currentCalculation->init($response['pid'], $response['uid'], $priority, (int)getRequest('public'), getRequest('password'), $response['status'], $response['input']);
 		if(!$currentCalculation->checkVariables()) handle(ERROR_INPUT.'01');
 		$response = $currentCalculation->modify();

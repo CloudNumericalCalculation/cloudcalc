@@ -1,43 +1,40 @@
-calculation.list
-{{calculations}}
 <table class="table table-bordered">
-	<tr ng-hide="1">
-		<th></th>
-		<th></th>
-		<th>
-			<input type="text">
-		</th>
-		<th>
-			<select>
-				<option>TRUE</option>
-				<option>FALSE</option>
-			</select>
-		</th>
-		<th>
-			<select>
-				<option>0</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-			</select>
-		</th>
-		<th></th>
-	</tr>
 	<tr>
 		<th>#</th>
 		<th>插件</th>
-		<th>用户</th>
-		<th>公开</th>
-		<th>状态</th>
+		<th>
+			<select class="form-control input-sm" ng-model="search.user">
+				<option value="0">只看自己</option>
+				<option value="-1">所有人</option>
+			</select>
+		</th>
+		<th>
+			<select class="form-control input-sm" ng-model="search.public">
+				<option value="-1">公开性</option>
+				<option value="0">PLUBLIC</option>
+				<option value="1">PASSWORD</option>
+				<option value="2">PRIVATE</option>
+			</select>
+		</th>
+		<th>
+			<select class="form-control input-sm" ng-model="search.status">
+				<option value="-1">状态</option>
+				<option value="0">Queueing - 排队中</option>
+				<option value="1">Computing - 计算中</option>
+				<option value="2">Done - 计算完成</option>
+				<option value="3">Warning - 数据有误</option>
+				<option value="4">Cancelled - 计算被取消</option>
+				<option value="5">Error - 计算过程中发生系统错误</option>
+			</select>
+		</th>
 		<th>操作</th>
 	</tr>
 	<tr ng-repeat="calculation in calculations">
 		<td>{{calculation.cid}}</td>
-		<td><a ui-sref="tool({toolId: calculation.pid})">{{calculation.pid}}</a></td>
-		<td>{{calculation.uid}}</td>
+		<td><a ui-sref="tool({toolId: calculation.pid})">{{calculation.pluginname}}</a></td>
+		<td>{{calculation.username}}</td>
 		<td>
-			<span ng-show="calculation.public" class="text-success">
+			<span ng-show="calculation.public && calculation.password === ''" class="text-success">
 				<span class="glyphicon glyphicon-ok"></span>
 			</span>
 			<span ng-show="calculation.public && calculation.password !== ''" class="text-warning">
@@ -48,7 +45,7 @@ calculation.list
 				<span class="glyphicon glyphicon-remove"></span>
 			</span>
 		</td>
-		<td>{{calculation.status}}</td>
-		<td><a ui-sref="calculation.show({calcId: calculation.cid})">Info</a></td>
+		<td><span ng-class="{'text-info': calculation.status===0,'text-primary': calculation.status===1,'text-success': calculation.status===2,'text-warning': calculation.status===3,'text-muted': calculation.status===4,'text-danger': calculation.status===5}">{{calculation.statusStr}}</span></td>
+		<td><a ui-sref="calculation.show({calcId: calculation.cid})"><button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-open"></span></button></a></td>
 	</tr>
 </table>
