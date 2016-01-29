@@ -15,6 +15,7 @@ app.controller('articleNew', ['$scope', '$rootScope', '$http', '$state', functio
 			else {
 				alert(response['errorMsg']);
 			}
+			$rootScope.$broadcast('refreshSiteData');
 		}).error(function () {
 			alert('Network Error');
 		});
