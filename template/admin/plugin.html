@@ -1,14 +1,13 @@
-{{plugins}}
 <table class="table table-bordered">
 	<tr>
 		<th>#</th>
-		<th>uid</th>
+		<th width="80px">uid</th>
 		<th>folder</th>
-		<th>cover</th>
+		<th width="200px">cover</th>
 		<th>name</th>
 		<th>author</th>
-		<th>git</th>
-		<th></th>
+		<th width="250px">git</th>
+		<th width="90px"></th>
 	</tr>
 	<tr ng-repeat="plugin in plugins">
 		<td>{{plugin.pid}}</td>
@@ -18,6 +17,18 @@
 		<td><input type="text" class="form-control input-sm" ng-model="plugin.name"</td>
 		<td><input type="text" class="form-control input-sm" ng-model="plugin.author"</td>
 		<td><input type="text" class="form-control input-sm" ng-model="plugin.git"</td>
-		<td><button type="button" class="btn btn-xs btn-danger" ng-click="modify(plugin)">SAVE</button></td>
+		<td>
+			<button type="button" class="btn btn-xs btn-primary" ng-click="modify(plugin)">SAVE</button>
+			<button type="button" class="btn btn-xs btn-default" ng-click="gitclone(plugin)"><span class="glyphicon glyphicon-download-alt"></span></button>
+		</td>
 	</tr>
+	<tr>
+		<td>+</td>
+		<td><input type="number" class="form-control input-sm" ng-model="newItem.uid" min="1"></td>
+		<td><input type="text" class="form-control input-sm" ng-model="newItem.folder" placeholder="folder"></td>
+		<td><input type="text" class="form-control input-sm" ng-model="newItem.cover" placeholder="/plugin/1/folder/logo.png"></td>
+		<td><input type="text" class="form-control input-sm" ng-model="newItem.name" placeholder="name"></td>
+		<td><input type="text" class="form-control input-sm" ng-model="newItem.author" placeholder="author"></td>
+		<td><input type="text" class="form-control input-sm" ng-model="newItem.git" placeholder="git@github.com"></td>
+		<td><button type="button" class="btn btn-xs btn-danger" ng-click="new()">NEW</button></td>
 </table>

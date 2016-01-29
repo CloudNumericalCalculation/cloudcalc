@@ -20,4 +20,44 @@ app.controller('adminPlugin', ['$scope', '$rootScope', '$http', '$timeout', func
 			$timeout(fetchData, 0);
 		});
 	}
+	$scope.gitclone = function (item) {
+		if(!confirm('确认执行git clone操作？\n若文件夹不存在将自动创建')) return;
+		alert('还没写呢。。。');
+	}
+
+	$scope.newItem = {
+		uid: '',
+		folder: '',
+		cover: '',
+		name: '',
+		author: '',
+		git: ''
+	}
+	$scope.new = function () {
+		var str = '部分信息创建后不能修改，确认？\n'
+			+ 'uid: ' + $scope.newItem.uid + '\n'
+			+ 'folder: ' + $scope.newItem.folder + '\n'
+			+ 'cover: ' + $scope.newItem.cover + '\n'
+			+ 'name: ' + $scope.newItem.name + '\n'
+			+ 'author: ' + $scope.newItem.author + '\n'
+			+ 'git: ' + $scope.newItem.git + '\n'
+		if(!confirm(str)) return;
+		$http.post('/api/plugin/new', $scope.newItem).success(function (response) {
+			if(response['code'] === '0000') {
+				alert('创建成功！');
+				$scope.newItem.uid = '';
+				$scope.newItem.folder = '';
+				$scope.newItem.cover = '';
+				$scope.newItem.name = '';
+				$scope.newItem.author = '';
+				$scope.newItem.git = '';
+			}
+			else {
+				alert(response['errorMsg']);
+			}
+			$timeout(fetchData, 0);
+		}).error(function () {
+			alert('Network Error!');
+		});
+	}
 }]);
