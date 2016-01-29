@@ -10,7 +10,17 @@ app.controller('adminUser', ['$scope', '$rootScope', '$http', '$timeout', functi
 	$scope.pwd = [];
 	$timeout(fetchData, 0);
 	$scope.search = {
+		username: ''
 	}
+	$scope.fetchDataFlag = 0;
+	$scope.$watch('search.username', function () {
+		$scope.fetchDataFlag = 1;
+	});
+	$scope.$watch('fetchDataFlag', function () {
+		if($scope.fetchDataFlag == 0) return;
+		$scope.fetchDataFlag = 0;
+		$timeout(fetchData, 0);
+	})
 
 	$scope.resetPassword = function (uid) {
 		if(!confirm('Sure?')) return;
