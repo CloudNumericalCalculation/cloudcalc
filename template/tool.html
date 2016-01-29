@@ -1,8 +1,18 @@
 <h3>{{current.name}} <small>By {{current.author}}</small></h3>
 <div class="plugin-single">
 	<div class="plugin-readme">
-		<markdown content="current.readme"></markdown>
+		<div align="right">README.md</div><hr>
+		<markdown content="current.file.readme"></markdown>
 	</div>
-	<div class="plugin-input"></div>
+	<div class="plugin-input">
+		<div>INPUT</div><hr>
+		<p ng-repeat="item in current.file.input">
+			<!-- <span>{{item}}</span> -->
+			<label>{{item.label}}</label>
+			<textarea class="form-control" rows="1" msd-elastic ng-model="item.value"></textarea>
+			<small class="text-muted">{{item.description}}</small>
+		</p>
+		<p align="right"><button class="btn btn-danger" ng-click="submit()">Submit!</button></p>
+	</div>
 	<div class="clr"></div>
 </div>

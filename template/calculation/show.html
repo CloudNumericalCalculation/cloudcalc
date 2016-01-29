@@ -16,7 +16,14 @@
 	<small>From {{current.username}}</small>
 </h3>
 <label>Input</label>
-<div class="show-box">{{current.input}}</div>
+<div class="show-box">
+	<p ng-repeat="item in current.input">
+		<!-- <span>{{item}}</span> -->
+		<label>{{item.label}}</label>
+		<textarea class="form-control" rows="1" msd-elastic ng-model="item.value" disabled></textarea>
+		<small class="text-muted">{{item.description}}</small>
+	</p>
+</div>
 <p class="pull-right" ng-class="{'text-info': current.status===0,'text-primary': current.status===1,'text-success': current.status===2,'text-warning': current.status===3,'text-muted': current.status===4,'text-danger': current.status===5}">{{current.statusStr}}</p>
 <label>Result</label>
 <div class="show-box">

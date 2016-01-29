@@ -1,5 +1,6 @@
 textarea {
 	resize: none;
+	max-height: 214px !important;
 }
 
 html, body {
@@ -75,8 +76,7 @@ html, body {
 	overflow: auto;
 }
 .plugin-single .plugin-input {
-	width: 600px;
-	float: left;
+	margin-left: 370px;
 	padding: 10px;
 	padding-left: 20px;
 	white-space: normal !important;

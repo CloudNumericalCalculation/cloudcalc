@@ -1,4 +1,4 @@
-var app = angular.module('cloudcalc', ['ngAnimate', 'ngRoute', 'ui.router', 'ui.bootstrap', 'toggle-switch']);
+var app = angular.module('cloudcalc', ['ngAnimate', 'ngRoute', 'ui.router', 'ui.bootstrap', 'toggle-switch', 'monospaced.elastic']);
 app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', function ($urlRouterProvider, $locationProvider, $stateProvider) {
 	$locationProvider.html5Mode(true);
 	$stateProvider.

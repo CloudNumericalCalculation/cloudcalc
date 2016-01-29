@@ -8,6 +8,7 @@ app.controller('calculationShow', ['$scope', '$rootScope', '$http', '$timeout', 
 			// console.log(response);
 			if(response['code'] === '0000') {
 				$scope.pageStatus = 0;
+				response['response']['input'] = angular.fromJson(response['response']['input']);
 				$scope.current = response['response'];
 			}
 			else if(response['code'] === '0202') {

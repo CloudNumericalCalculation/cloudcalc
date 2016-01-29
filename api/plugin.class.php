@@ -24,6 +24,15 @@ class Plugin{
 		if(!preg_match('/^[0-9]+$/', $this->uid)) return false;
 		return true;
 	}
+	private function getFileInformation() {
+		$path = '../plugin/'.$this->uid.'/'.$this->folder.'/';
+		$data['readme'] = file_get_contents($path.'README.md');
+		$data['input'] = json_decode(file_get_contents($path.'input.json'), true);
+		for($_i = 0; $_i < count($data['input']); $_i++) {
+			$data['input'][$_i]['value'] = '';
+		}
+		return $data;
+	}
 	public function getData(){
 		if(($sqlPlugin = @mysql_query(
 			'SELECT `pid`, `uid`, `folder`, `cover`, `name`, `author`, `git`, `gitStatus`, `available`
@@ -40,6 +49,7 @@ class Plugin{
 		$this->gitStatus = $response['gitStatus'] = (int)$response['gitStatus'];
 		$this->available = $response['available'] = (bool)$response['available'];
 		if(!$response['available'] && !checkAuthority(9)) return false;
+		$response['file'] = $this->getFileInformation();
 		return json_encode($response);
 	}
 	public function listData($uid=""){
