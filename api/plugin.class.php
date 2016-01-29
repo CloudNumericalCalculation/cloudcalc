@@ -7,14 +7,16 @@ class Plugin{
 	private $name;
 	private $author;
 	private $git;
+	private $available;
 
-	public function init($uid, $folder, $cover, $name, $author, $git) {
+	public function init($uid, $folder, $cover, $name, $author, $git, $available) {
 		$this->uid = $uid;
 		$this->folder = $folder;
 		$this->cover = $cover;
 		$this->name = $name;
 		$this->author = $author;
 		$this->git = $git;
+		$this->available = $available;
 	}
 	public function checkVariables() {
 		if(!preg_match('/^[0-9]+$/', $this->uid)) return false;
@@ -22,7 +24,7 @@ class Plugin{
 	}
 	public function getData(){
 		if(($sqlPlugin = @mysql_query(
-			'SELECT `pid`, `uid`, `folder`, `cover`, `name`, `author`, `git`
+			'SELECT `pid`, `uid`, `folder`, `cover`, `name`, `author`, `git`, `available`
 			FROM `plugin`
 			WHERE `pid` = "'.$this->pid.'";')) === false) return false;
 		if(($response = @mysql_fetch_assoc($sqlPlugin)) === false) return false;
@@ -33,11 +35,13 @@ class Plugin{
 		$this->name = $response['name'] = urldecode($response['name']);
 		$this->author = $response['author'] = urldecode($response['author']);
 		$this->git = $response['git'] = urldecode($response['git']);
+		$this->available = $response['available'] = (bool)$response['available'];
+		if(!$response['available'] && !checkAuthority(9)) return false;
 		return json_encode($response);
 	}
 	public function listData($uid=""){
 		if(($sqlPlugin = @mysql_query(
-			'SELECT `pid`, `uid`, `folder`, `cover`, `name`, `author`, `git`
+			'SELECT `pid`, `uid`, `folder`, `cover`, `name`, `author`, `git`, `available`
 			FROM `plugin`
 			WHERE `uid` LIKE "%'.$uid.'%";')) === false) return false;
 		$response = [];
@@ -49,6 +53,8 @@ class Plugin{
 			$item['name'] = urldecode($item['name']);
 			$item['author'] = urldecode($item['author']);
 			$item['git'] = urldecode($item['git']);
+			$item['available'] = (bool)$item['available'];
+			if(!$item['available'] && !checkAuthority(9)) continue;
 			array_push($response, $item);
 		}
 		return json_encode($response);
@@ -74,7 +80,8 @@ class Plugin{
 				`cover` = "'.urlencode($this->cover).'",
 				`name` = "'.urlencode($this->name).'",
 				`author` = "'.urlencode($this->author).'",
-				`git` = "'.urlencode($this->git).'"
+				`git` = "'.urlencode($this->git).'",
+				`available` = "'.$this->available.'"
 			WHERE `pid` = "'.$this->pid.'";')) === false) return false;
 		return true;
 	}

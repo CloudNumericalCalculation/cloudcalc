@@ -17,7 +17,7 @@ switch ($action[1]) {
 	case 'new':
 		if(!checkAuthority(9)) handle(ERROR_PERMISSION.'00');
 		$currentPlugin = new Plugin;
-		$currentPlugin->init(getRequest('uid'), getRequest('folder'), getRequest('cover'), getRequest('name'), getRequest('author'), getRequest('git'));
+		$currentPlugin->init(getRequest('uid'), getRequest('folder'), getRequest('cover'), getRequest('name'), getRequest('author'), getRequest('git'), 0);
 		if(!$currentPlugin->checkVariables()) handle(ERROR_INPUT.'01');
 		$response = $currentPlugin->create();
 		if($response === false) handle(ERROR_SYSTEM.'00');
@@ -29,7 +29,7 @@ switch ($action[1]) {
 		$currentPlugin = new Plugin;
 		$currentPlugin->pid = getRequest('pid');
 		$response = json_decode($currentPlugin->getData(), true);
-		$currentPlugin->init($response['uid'], $response['folder'], getRequest('cover'), getRequest('name'), getRequest('author'), getRequest('git'));
+		$currentPlugin->init($response['uid'], $response['folder'], getRequest('cover'), getRequest('name'), getRequest('author'), getRequest('git'), (int)getRequest('available'));
 		if(!$currentPlugin->checkVariables()) handle(ERROR_INPUT.'01');
 		$response = $currentPlugin->modify();
 		if($response === false) handle(ERROR_SYSTEM.'00'.'目录名冲突！');

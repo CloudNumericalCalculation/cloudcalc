@@ -31,7 +31,8 @@ app.controller('adminPlugin', ['$scope', '$rootScope', '$http', '$timeout', func
 		cover: '',
 		name: '',
 		author: '',
-		git: ''
+		git: '',
+		available: false
 	}
 	$scope.new = function () {
 		var str = '部分信息创建后不能修改，确认？\n'
@@ -41,6 +42,7 @@ app.controller('adminPlugin', ['$scope', '$rootScope', '$http', '$timeout', func
 			+ 'name: ' + $scope.newItem.name + '\n'
 			+ 'author: ' + $scope.newItem.author + '\n'
 			+ 'git: ' + $scope.newItem.git + '\n'
+			+ 'available: ' + $scope.newItem.available + '\n';
 		if(!confirm(str)) return;
 		$http.post('/api/plugin/new', $scope.newItem).success(function (response) {
 			if(response['code'] === '0000') {
@@ -51,6 +53,7 @@ app.controller('adminPlugin', ['$scope', '$rootScope', '$http', '$timeout', func
 				$scope.newItem.name = '';
 				$scope.newItem.author = '';
 				$scope.newItem.git = '';
+				$scope.newItem.available = false;
 			}
 			else {
 				alert(response['errorMsg']);
