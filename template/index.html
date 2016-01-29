@@ -1,5 +1,5 @@
 <div class="plugin">
-	<a class="plugin-box" ng-repeat="plugin in $root.plugins" ui-sref="tool({toolId: plugin.pid})">
+	<a class="plugin-box" ng-repeat="plugin in $root.plugins" ui-sref="tool({toolId: plugin.pid})" style="background-image:url({{plugin.cover}});background-repeat:no-repeat;background-position:center;">
 		<div class="plugin-title"><table align="center"><tr><td>{{plugin.name}}</td></tr></table></div>
 		<div class="plugin-author">{{plugin.author}}</div>
 	</a>

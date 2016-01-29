@@ -27,12 +27,14 @@ html, body {
 	color: black;
 }
 .plugin .plugin-box:hover {
+	background-image: none !important;
 	border: none;
 	cursor: pointer;
 	background-color: #337ab7;
 	color: white;
 }
 .plugin .plugin-box:active {
+	background-image: none !important;
 	border: none;
 	/*background-color: #104E8B;*/
 	height: 215px;
