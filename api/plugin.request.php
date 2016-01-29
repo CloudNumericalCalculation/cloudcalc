@@ -29,7 +29,7 @@ switch ($action[1]) {
 		$currentPlugin = new Plugin;
 		$currentPlugin->pid = getRequest('pid');
 		$response = json_decode($currentPlugin->getData(), true);
-		$currentPlugin->init($response['uid'], getRequest('folder'), getRequest('cover'), getRequest('name'), getRequest('author'), getRequest('git'));
+		$currentPlugin->init($response['uid'], $response['folder'], getRequest('cover'), getRequest('name'), getRequest('author'), getRequest('git'));
 		if(!$currentPlugin->checkVariables()) handle(ERROR_INPUT.'01');
 		$response = $currentPlugin->modify();
 		if($response === false) handle(ERROR_SYSTEM.'00'.'目录名冲突！');

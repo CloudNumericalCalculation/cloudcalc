@@ -5,7 +5,10 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 	state('index', {
 		url: '/',
 		templateUrl: '/template/index.html',
-		controller: 'index'
+		controller: 'index',
+		onEnter: ['$rootScope', function ($rootScope) {
+			$rootScope.$broadcast('refreshPluginList');
+		}]
 	}).
 	state('user', {
 		url: '/user'
@@ -78,6 +81,13 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 		views: {'@': {
 			templateUrl: '/template/admin/user.html',
 			controller: 'adminUser'
+		}}
+	}).
+	state('admin.plugin', {
+		url: '/plugin',
+		views: {'@': {
+			templateUrl: '/template/admin/plugin.html',
+			controller: 'adminPlugin'
 		}}
 	}).
 	state('admin.article', {

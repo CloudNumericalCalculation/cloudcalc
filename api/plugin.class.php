@@ -71,7 +71,6 @@ class Plugin{
 		if(($sqlPlugin = @mysql_query(
 			'UPDATE `plugin`
 			SET 
-				`folder` = "'.urlencode($this->folder).'",
 				`cover` = "'.urlencode($this->cover).'",
 				`name` = "'.urlencode($this->name).'",
 				`author` = "'.urlencode($this->author).'",
