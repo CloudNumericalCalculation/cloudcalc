@@ -7,22 +7,29 @@
 		<th>name</th>
 		<th>author</th>
 		<th width="200px">git</th>
-		<th>available</th>
-		<th width="90px"></th>
+		<th width="100px">clone</th>
+		<th><span class="glyphicon glyphicon-eye-open"></span></th>
+		<th width="30px"></th>
 	</tr>
 	<tr ng-repeat="plugin in plugins">
 		<td>{{plugin.pid}}</td>
 		<td>{{plugin.uid}}</td>
 		<td>{{plugin.folder}}</td>
 		<td><input type="text" class="form-control input-sm" ng-model="plugin.cover"></td>
-		<td><input type="text" class="form-control input-sm" ng-model="plugin.name"</td>
-		<td><input type="text" class="form-control input-sm" ng-model="plugin.author"</td>
-		<td><input type="text" class="form-control input-sm" ng-model="plugin.git"</td>
-		<td><toggle-switch ng-model="plugin.available" on-label="V" off-label="X"></toggle-switch></td>
-		<td>
-			<button type="button" class="btn btn-xs btn-primary" ng-click="modify(plugin)">SAVE</button>
-			<button type="button" class="btn btn-xs btn-default" ng-click="gitclone(plugin)"><span class="glyphicon glyphicon-download-alt"></span></button>
+		<td><input type="text" class="form-control input-sm" ng-model="plugin.name"></td>
+		<td><input type="text" class="form-control input-sm" ng-model="plugin.author"></td>
+		<td><input type="text" class="form-control input-sm" ng-model="plugin.git"></td>
+		<td ng-init="plugin.gitStatus=plugin.gitStatus+''">
+			<select class="form-control input-sm" ng-model="plugin.gitStatus">
+				<option value="0">Never</option>
+				<option value="1">Done</option>
+				<option value="2">Waiting</option>
+				<option value="3">Cloning</option>
+				<option value="4">Error</option>
+			</select>
 		</td>
+		<td><input type="checkbox" ng-model="plugin.available"></td>
+		<td><button type="button" class="btn btn-xs btn-primary" ng-click="modify(plugin)"><span class="glyphicon glyphicon-floppy-saved"></span></button></td>
 	</tr>
 	<tr>
 		<td>+</td>
@@ -32,6 +39,11 @@
 		<td><input type="text" class="form-control input-sm" ng-model="newItem.name" placeholder="name"></td>
 		<td><input type="text" class="form-control input-sm" ng-model="newItem.author" placeholder="author"></td>
 		<td><input type="text" class="form-control input-sm" ng-model="newItem.git" placeholder="git@github.com:xxx.git"></td>
-		<td><toggle-switch ng-model="newItem.available" on-label="V" off-label="X" disabled="true"></toggle-switch></td>
-		<td><button type="button" class="btn btn-xs btn-danger" ng-click="new()">NEW</button></td>
+		<td>
+			<select class="form-control input-sm" disabled>
+				<option>Never</option>
+			</select>
+		</td>
+		<td><input type="checkbox" ng-model="newItem.available" disabled></td>
+		<td><button type="button" class="btn btn-xs btn-danger" ng-click="new()"><span class="glyphicon glyphicon-plus"></span></button></td>
 </table>

@@ -21,8 +21,17 @@ app.controller('adminPlugin', ['$scope', '$rootScope', '$http', '$timeout', func
 		});
 	}
 	$scope.gitclone = function (item) {
-		if(!confirm('确认执行git clone操作？\n若文件夹不存在将自动创建')) return;
-		alert('还没写呢。。。');
+		if(!confirm('确认执行git clone操作？\n/plugin/' + item['uid'] + '/' + item['folder'] + '\n若文件夹不存在将自动创建')) return;
+		$http.post('/api/plugin/gitclone', {pid: item['pid']}).success(function (response) {
+			if(response['code'] === '0000') {
+				alert(response['response']);
+			}
+			else {
+				alert(response['errorMsg']);
+			}
+		}).error(function () {
+			alert('Network Error!');
+		});
 	}
 
 	$scope.newItem = {
