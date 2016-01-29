@@ -1,6 +1,6 @@
 <div class="pull-right" ng-hide="$root.site.announcement==''">
-	<span class="text-info glyphicon glyphicon-bullhorn"></span>
 	<span ng-repeat="notice in $root.site.notices">
+		<span ng-show="$index==0" class="text-info glyphicon glyphicon-bullhorn"></span>
 		<span ng-show="$index>0"> | </span>
 		<a ui-sref="article.show({articleId:notice.aid})">{{notice.title}}</a>
 	</span>
