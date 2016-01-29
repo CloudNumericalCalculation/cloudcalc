@@ -96,6 +96,7 @@ class Calculation{
 			$item['status'] = (int)$item['status'];
 			$item['input'] = urldecode($item['input']);
 			$item['result'] = urldecode($item['result']);
+			if(strlen($item['password']) > 0) $item['password'] = '***';
 			$item['pluginname'] = self::getPluginName($item['pid']);
 			$item['username'] = self::getUserName($item['uid']);
 			$item['statusStr'] = self::getStatusStr($item['status']);

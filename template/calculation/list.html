@@ -36,13 +36,15 @@
 		<td>
 			<span ng-show="calculation.public && calculation.password === ''" class="text-success">
 				<span class="glyphicon glyphicon-ok"></span>
+				<span>PUBLIC</span>
 			</span>
 			<span ng-show="calculation.public && calculation.password !== ''" class="text-warning">
 				<span class="glyphicon glyphicon-lock"></span>
-				<span>{{calculation.password}}</span>
+				<span>PASSWORD</span>
 			</span>
 			<span ng-show="!calculation.public" class="text-danger">
 				<span class="glyphicon glyphicon-remove"></span>
+				<span>PRIVATE</span>
 			</span>
 		</td>
 		<td><span ng-class="{'text-info': calculation.status===0,'text-primary': calculation.status===1,'text-success': calculation.status===2,'text-warning': calculation.status===3,'text-muted': calculation.status===4,'text-danger': calculation.status===5}">{{calculation.statusStr}}</span></td>
