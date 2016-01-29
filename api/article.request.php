@@ -31,7 +31,7 @@ switch ($action[1]) {
 		$currentArticle = new Article;
 		$currentArticle->aid = getRequest('aid');
 		$response = json_decode($currentArticle->getData(), true);
-		$currentArticle->init(getRequest('title'), getRequest('content'), getRequest('visibility'), getRequest('notice'));
+		$currentArticle->init(getRequest('title'), getRequest('content'), (int)getRequest('visibility'), (int)getRequest('notice'));
 		if(!$currentArticle->checkVariables()) handle(ERROR_INPUT.'01');
 		$response = $currentArticle->modify();
 		if($response === false) handle(ERROR_SYSTEM.'00');

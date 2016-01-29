@@ -1,6 +1,9 @@
 <div class="pull-right" ng-hide="$root.site.announcement==''">
 	<span style="color:red;" class="glyphicon glyphicon-bullhorn"></span>
-	<span>{{$root.site.announcement}}</span>
+	<span ng-repeat="notice in $root.site.notices">
+		<span ng-show="$index>0"> | </span>
+		<a ui-sref="article.show({articleId:notice.aid})">{{notice.title}}</a>
+	</span>
 </div>
 <h2>云端计算开放平台</h2>
 <div class="pull-right">

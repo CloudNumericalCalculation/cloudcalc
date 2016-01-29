@@ -1,4 +1,4 @@
-var app = angular.module('cloudcalc', ['ngAnimate', 'ngRoute', 'ui.router', 'ui.bootstrap']);
+var app = angular.module('cloudcalc', ['ngAnimate', 'ngRoute', 'ui.router', 'ui.bootstrap', 'toggle-switch']);
 app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', function ($urlRouterProvider, $locationProvider, $stateProvider) {
 	$locationProvider.html5Mode(true);
 	$stateProvider.
@@ -79,6 +79,54 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 			templateUrl: '/template/admin/user.html',
 			controller: 'adminUser'
 		}}
+	}).
+	state('admin.article', {
+		url: '/notice',
+		views: {'@': {
+			templateUrl: '/template/admin/article.html',
+			controller: 'adminArticle'
+		}}
+	}).
+	state('article', {
+		url: '/notice'
+	}).
+	state('article.show', {
+		url: '/show/:articleId',
+		views: {'@': {
+			templateUrl: '/template/article/show.html',
+			controller: 'articleShow',
+			resolve: {
+				aid: ['$stateParams', function ($stateParams) {
+					return $stateParams.articleId;
+				}]
+			}
+		}},
+
+	}).
+	state('article.edit', {
+		url: '/edit/:articleId',
+		views: {'@': {
+			templateUrl: '/template/article/edit.html',
+			controller: 'articleEdit',
+			resolve: {
+				aid: ['$stateParams', function ($stateParams) {
+					return $stateParams.articleId;
+				}]
+			}
+		}},
+		onEnter: ['$rootScope', function ($rootScope) {
+			$rootScope.$broadcast('refreshUserData');
+		}]
+	}).
+	state('article.new', {
+		url: '/new',
+		views: {'@': {
+			templateUrl: '/template/article/edit.html',
+			controller: 'articleNew'
+		}},
+		onEnter: ['$rootScope', function ($rootScope) {
+			$rootScope.$broadcast('refreshUserData');
+		}]
 	}).
 	state('error', {
 		url: '/error',

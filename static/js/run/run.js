@@ -22,12 +22,22 @@ app.run(['$rootScope', '$http', '$timeout', '$state', function($rootScope, $http
 			if($rootScope.user.level !== 9 && $state.includes('admin')) {
 				$state.go('index');
 			}
+			if($rootScope.user.level !== 9 && $state.includes('article.edit')) {
+				$state.go('index');
+			}
 		}).error(function () {
 			alert('Network Error!');
 		});
 	}
 	var fetchSiteData = function () {
-		// $http.get('/api/article/')
+		$http.get('/api/site/data').success(function (response) {
+			if(response['code'] === '0000') {
+				// console.log(response);
+				$rootScope.site = response['response'];
+			}
+		}).error(function () {
+			alert('Network Error!');
+		});
 	}
 
 	$rootScope.$on('refreshPluginList', function () {

@@ -1,0 +1,32 @@
+<table class="table table-bordered">
+	<tr>
+		<th width="50px">#</th>
+		<th>标题</th>
+		<th width="80px">可见</th>
+		<th width="80px">公告</th>
+		<th width="80px">操作</th>
+	</tr>
+	<tr ng-repeat="article in articles">
+		<td>{{article.aid}}</td>
+		<td>{{article.title}}</td>
+		<td>
+			<span class="text-success glyphicon glyphicon-ok" ng-show="article.visibility"></span>
+			<span class="text-danger glyphicon glyphicon-remove" ng-hide="article.visibility"></span>
+		</td>
+		<td>
+			<span class="text-success glyphicon glyphicon-ok" ng-show="article.notice"></span>
+			<span class="text-danger glyphicon glyphicon-remove" ng-hide="article.notice"></span>
+		</td>
+		<td>
+			<a class="btn btn-xs btn-default" ui-sref="article.show({articleId:article.aid})"><span class="glyphicon glyphicon-eye-open"></span></a>
+			<a class="btn btn-xs btn-primary" ui-sref="article.edit({articleId:article.aid})"><span class="glyphicon glyphicon-pencil"></span></a>
+		</td>
+	</tr>
+	<tr>
+		<td>+</td>
+		<td><a ui-sref="article.new" class="btn btn-xs btn-danger">NEW</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
