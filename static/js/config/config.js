@@ -67,6 +67,19 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 			}
 		}}
 	}).
+	state('admin', {
+		url: '/admin',
+		onEnter: ['$rootScope', function ($rootScope) {
+			$rootScope.$broadcast('refreshUserData');
+		}]
+	}).
+	state('admin.user', {
+		url: '/user',
+		views: {'@': {
+			templateUrl: '/template/admin/user.html',
+			controller: 'adminUser'
+		}}
+	}).
 	state('error', {
 		url: '/error',
 		templateUrl: '/template/error/frame.html'

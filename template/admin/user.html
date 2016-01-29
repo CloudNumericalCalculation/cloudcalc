@@ -1,0 +1,23 @@
+<table class="table table-bordered">
+	<tr>
+		<th>#</th>
+		<th>avatar</th>
+		<th>username</th>
+		<th>email</th>
+		<th>password</th>
+		<th>level</th>
+	</tr>
+	<tr ng-repeat="user in users">
+		<td>{{user.uid}}</td>
+		<td><img ng-src="{{user.avatar}}?s=30"></td>
+		<td>{{user.username}}</td>
+		<td>{{user.email}}</td>
+		<td>
+			<button class="btn btn-xs btn-danger" ng-click="resetPassword(user.uid)">reset</button>
+		</td>
+		<td><form class="form-inline" onsubmit="return false;">
+			<input type="number" min="0" max="9" class="form-control input-sm" ng-model="user.level">
+			<button type="button" class="btn btn-xs btn-primary" ng-click="changeLevel(user.uid, user.level)"><span class="glyphicon glyphicon-pencil"></span></button>
+		</form></td>
+	</tr>
+</table>

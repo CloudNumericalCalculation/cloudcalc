@@ -70,6 +70,31 @@ switch ($action[1]) {
 		if($response === false) handle(ERROR_SYSTEM.'00');
 		else handle('0000');
 		break;
+	case 'changeLevel':
+		if(!checkAuthority(9)) handle(ERROR_PERMISSION.'01');
+		$uid = getRequest('uid');
+		$level = max(0, min(9, (int)getRequest('level')));
+		if(($sqlUser = @mysql_query('UPDATE `user`
+			SET `level` = "'.$level.'"
+			WHERE `uid` = "'.$uid.'";')) === false) handle(ERROR_SYSTEM.'01');
+		handle('0000');
+		break;
+	case 'resetPassword':
+		if(!checkAuthority(9)) handle(ERROR_PERMISSION.'01');
+		$_p = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		$currentUser = new User;
+		$currentUser->uid = $uid = getRequest('uid');
+		$username = json_decode($currentUser->getData(), true)['username'];
+		$pwd = '';
+		for($_i = 0; $_i < 10; $_i++) {
+			$pwd .= $_p[mt_rand(0, strlen($_p)-1)];
+		}
+		$password = password_hash(md5($username.md5($pwd).'.cc'), PASSWORD_BCRYPT);
+		if(($sqlUser = @mysql_query('UPDATE `user`
+			SET `password` = "'.$password.'"
+			WHERE `uid` = "'.$uid.'";')) === false) handle(ERROR_SYSTEM.'01');
+		handle('0000{"password":"'.$pwd.'"}');
+		break;
 	default:
 		ERROR(ERROR_INPUT.'02', 'Request Error.');
 		break;
