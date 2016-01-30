@@ -11,7 +11,7 @@
 </div>
 <div ng-show="pageStatus==0">
 <h3>
-	<span>CID [ {{current.cid}} ]</span>
+	<a ui-sref="calculation.show({calcId:current.cid})">CID {{current.cid}}</a>
 	<small>By <a ui-sref="tool({toolId: current.pid})">{{current.pluginname}}</a></small>
 	<small>From {{current.username}}</small>
 </h3>

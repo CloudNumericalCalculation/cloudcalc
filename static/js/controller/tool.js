@@ -1,4 +1,4 @@
-app.controller('tool', ['$scope', '$rootScope', '$http', '$state', function($scope, $rootScope, $http, $state){
+app.controller('tool', ['$scope', '$rootScope', '$http', '$state', '$modal', function($scope, $rootScope, $http, $state, $modal){
 	$http.post('/api/plugin/show', {pid: $rootScope.$state.params.toolId}).success(function (response) {
 		if(response['code'] === '0000') {
 			$scope.current = response['response'];
@@ -26,7 +26,16 @@ app.controller('tool', ['$scope', '$rootScope', '$http', '$state', function($sco
 		// console.log(data);
 		$http.post('/api/calculation/new', data).success(function (response) {
 			if(response['code'] === '0000') {
-				$state.go('calculation.show', {calcId: response['response']['cid']});
+				// $state.go('calculation.show', {calcId: response['response']['cid']});
+				$modal.open({
+					templateUrl: '/template/calculation/show.html',
+					controller: 'calculationShow',
+					resolve: {
+						cid: [function () {
+							return response['response']['cid'];
+						}]
+					}
+				});
 			}
 		}).error(function () {
 			alert('Network Error.');

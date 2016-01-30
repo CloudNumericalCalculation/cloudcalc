@@ -2,7 +2,7 @@
 	<p class="pull-right"><toggle-switch ng-model="current.notice" on-label="YES" off-label="NO" knob-label="Notice"></p>
 	<p><toggle-switch ng-model="current.visibility" on-label="PUBLIC" off-label="PRIVATE"></toggle-switch></p>
 	<p><input class="form-control" ng-model="current.title" placeholder="标题"></p>
-	<p><textarea class="form-control" ng-model="current.content" placeholder="正文"></textarea></p>
+	<p><textarea class="form-control" rows="1" msd-elastic ng-model="current.content" placeholder="正文"></textarea></p>
 	<p align="center">
 		<button type="submit" class="btn btn-success" ng-click="save()">保存更改</button>
 		<a ng-hide="current.aid==-1" ui-sref="article.show({articleId:current.aid})" class="btn btn-default">查看公告</a>

@@ -95,3 +95,7 @@ html, body {
 	padding: 10px;
 	margin-bottom: 20px;
 }
+
+.modal-content {
+	padding: 10px;
+}

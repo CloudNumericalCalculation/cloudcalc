@@ -1,4 +1,9 @@
-app.controller('calculationShow', ['$scope', '$rootScope', '$http', '$timeout', 'cid', function($scope, $rootScope, $http, $timeout, cid){
+app.controller('calculationShow', ['$scope', '$rootScope', '$http', '$timeout', 'cid', '$state', function($scope, $rootScope, $http, $timeout, cid, $state){
+	var needRefresh = function () {
+		if($scope.current.status == 0) return true;
+		if($scope.current.status == 1) return true;
+		return false;
+	}
 	var fetchData = function (password) {
 		var data = {
 			cid: cid,
@@ -8,8 +13,10 @@ app.controller('calculationShow', ['$scope', '$rootScope', '$http', '$timeout', 
 			// console.log(response);
 			if(response['code'] === '0000') {
 				$scope.pageStatus = 0;
-				response['response']['input'] = angular.fromJson(response['response']['input']);
 				$scope.current = response['response'];
+				if(needRefresh() && $state.$current.name === 'calculation.show') {
+					$timeout(fetchData, 3000);
+				}
 			}
 			else if(response['code'] === '0202') {
 				$scope.pageStatus = 1;

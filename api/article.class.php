@@ -35,7 +35,7 @@ class Article{
 		if($notice == true) $conditionStr = 'WHERE `notice` = "1"';
 		if(($sqlArticle = @mysql_query(
 			'SELECT `aid`, `title`, `content`, `visibility`, `notice`
-			FROM `article` '.$conditionStr.';')) === false) return false;
+			FROM `article` '.$conditionStr.' ORDER BY `aid` DESC;')) === false) return false;
 		$response = [];
 		while(($item = @mysql_fetch_assoc($sqlArticle)) !== false) {
 			$item['aid'] = (int)$item['aid'];

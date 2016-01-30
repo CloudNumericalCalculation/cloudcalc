@@ -31,10 +31,10 @@ class Calculation{
 	private function getStatusStr($status) {
 		if($status === 0) return 'Queueing - 排队中';
 		if($status === 1) return 'Computing - 计算中';
-		if($status === 1) return 'Done - 计算完成';
-		if($status === 1) return 'Warning - 数据有误';
-		if($status === 1) return 'Cancelled - 计算被取消';
-		if($status === 1) return 'Error - 计算过程中发生系统错误';
+		if($status === 2) return 'Done - 计算完成';
+		if($status === 3) return 'Warning - 数据有误';
+		if($status === 4) return 'Cancelled - 计算被取消';
+		if($status === 5) return 'Error - 计算过程中发生系统错误';
 	}
 	private function getPluginName($pid) {
 		require_once('plugin.class.php');
@@ -64,7 +64,7 @@ class Calculation{
 		$this->password = $response['password'];
 		$this->status = $response['status'] = (int)$response['status'];
 			$response['statusStr'] = self::getStatusStr($response['status']);
-		$this->input = $response['input'] = urldecode($response['input']);
+		$this->input = $response['input'] = json_decode(urldecode($response['input']), true);
 		$this->result = $response['result'] = urldecode($response['result']);
 		return json_encode($response);
 	}
@@ -85,7 +85,7 @@ class Calculation{
 		}
 		if(($sqlCalculation = @mysql_query(
 			'SELECT `cid`, `pid`, `uid`, `priority`, `public`, `password`, `status`, `input`, `result`
-			FROM `calculation`'.$conditionStr.';')) === false) return false;
+			FROM `calculation`'.$conditionStr.' ORDER BY `cid` DESC;')) === false) return false;
 		$response = [];
 		while(($item = @mysql_fetch_assoc($sqlCalculation)) !== false) {
 			$item['cid'] = (int)$item['cid'];
