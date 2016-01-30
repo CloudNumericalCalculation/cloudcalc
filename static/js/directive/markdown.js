@@ -8,9 +8,9 @@ app.directive('markdown', function() {
 			if (angular.isDefined($scope.content)) {
 				return $scope.$watch('content', function() {
 					var content = angular.copy($scope.content);
-					marked.setOptions({breaks:true});
+					// marked.setOptions({breaks:true});
 					content = marked(content);
-					// content = content.replace(/<table/g, '<table class="table table-bordered table-hover"')
+					content = content.replace(/<table/g, '<table class="table table-bordered"')
 					$element.empty().append(content);
 				}, true);
 			}

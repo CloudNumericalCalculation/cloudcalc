@@ -26,16 +26,16 @@ app.controller('tool', ['$scope', '$rootScope', '$http', '$state', '$modal', fun
 		// console.log(data);
 		$http.post('/api/calculation/new', data).success(function (response) {
 			if(response['code'] === '0000') {
-				// $state.go('calculation.show', {calcId: response['response']['cid']});
-				$modal.open({
-					templateUrl: '/template/calculation/show.html',
-					controller: 'calculationShow',
-					resolve: {
-						cid: [function () {
-							return response['response']['cid'];
-						}]
-					}
-				});
+				$state.go('calculation.show', {calcId: response['response']['cid']});
+				// $modal.open({
+				// 	templateUrl: '/template/calculation/show.html',
+				// 	controller: 'calculationShow',
+				// 	resolve: {
+				// 		cid: [function () {
+				// 			return response['response']['cid'];
+				// 		}]
+				// 	}
+				// });
 			}
 		}).error(function () {
 			alert('Network Error.');
