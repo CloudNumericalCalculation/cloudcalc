@@ -4,6 +4,9 @@ app.controller('calculationShow', ['$scope', '$rootScope', '$http', '$timeout', 
 		if($scope.current.status == 1) return true;
 		return false;
 	}
+	$scope.current = {
+		result: ''
+	}
 	var fetchData = function (password) {
 		var data = {
 			cid: cid,

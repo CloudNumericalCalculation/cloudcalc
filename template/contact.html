@@ -1,0 +1,21 @@
+<div class="sign-box">
+	<h3 align="center">联系我们</h3>
+	<p><br></p>
+	<p align="center">
+		<label><input type="radio" name="contactType" value="0" ng-model="chooseType">反馈</label>&nbsp;&nbsp;&nbsp;&nbsp;
+		<label><input type="radio" name="contactType" value="1" ng-model="chooseType">插件提交</label>
+	</p>
+	<p><input class="form-control" ng-model="basic.name" placeholder="您的姓名"><small class="text-muted">我们该如何称呼您呢？</small></p>
+	<p><input class="form-control" ng-model="basic.contact" placeholder="QQ，Email"><small class="text-muted">我们该如何联系您呢？</small></p>
+	<div ng-show="chooseType==0">
+		<p><textarea class="form-control" rows="5" msd-elastic ng-model="feedback" placeholder="您对我们的平台有什么意见和建议呢？"></textarea></p>
+		<p align="center"><button class="btn btn-success" ng-click="sendFeedback()">提交反馈</button></p>
+	</div>
+	<div ng-show="chooseType==1">
+		<p><input class="form-control" ng-model="plugin.username" placeholder="您在本平台的用户名"><small class="text-muted">插件成功入驻后您用该用户名登陆提交计算将获得优先顺序权</small></p>
+		<p><input class="form-control" ng-model="plugin.name" placeholder="插件名"><small class="text-muted">给您的插件起一个响亮的名字吧</small></p>
+		<p><input class="form-control" ng-model="plugin.author" placeholder="作者"><small class="text-muted">您希望显示的插件的作者名字</small></p>
+		<p><input class="form-control" ng-model="plugin.git" placeholder="Git地址"><small class="text-muted">您的插件在Github（或者其他Git平台）中的仓库地址</small></p>
+		<p align="center"><button class="btn btn-success" ng-click="sendPlugin()">申请入驻</button></p>
+	</div>
+</div>

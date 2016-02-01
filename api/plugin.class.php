@@ -26,8 +26,18 @@ class Plugin{
 	}
 	private function getFileInformation() {
 		$path = '../plugin/'.$this->uid.'/'.$this->folder.'/';
-		$data['readme'] = file_get_contents($path.'README.md');
-		$data['input'] = json_decode(file_get_contents($path.'input.json'), true);
+		if(file_exists($path.'README.md')) {
+			$data['readme'] = file_get_contents($path.'README.md');
+		}
+		else {
+			$data['readme'] = '###该插件目前不可用！';
+		}
+		if(file_exists($path.'input.json')) {
+			$data['input'] = json_decode(file_get_contents($path.'input.json'), true);
+		}
+		else {
+			$data['input'] = [];
+		}
 		for($_i = 0; $_i < count($data['input']); $_i++) {
 			$data['input'][$_i]['value'] = '';
 		}

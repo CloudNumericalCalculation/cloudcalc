@@ -138,6 +138,11 @@ app.config(['$urlRouterProvider', '$locationProvider', '$stateProvider', functio
 			$rootScope.$broadcast('refreshUserData');
 		}]
 	}).
+	state('contact', {
+		url: '/contact',
+		templateUrl: '/template/contact.html',
+		controller: 'contact'
+	}).
 	state('error', {
 		url: '/error',
 		templateUrl: '/template/error/frame.html'
