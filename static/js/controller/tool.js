@@ -37,6 +37,9 @@ app.controller('tool', ['$scope', '$rootScope', '$http', '$state', '$modal', fun
 				// 	}
 				// });
 			}
+			else {
+				alert(response['errorMsg']);
+			}
 		}).error(function () {
 			alert('Network Error.');
 		});
