@@ -11,8 +11,8 @@ app.directive('markdown', function() {
 					// marked.setOptions({breaks:true});
 					content = marked(content);
 					content = content.replace(/<table/g, '<table class="table table-bordered"');
-					MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
 					$element.empty().append(content);
+					MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
 				}, true);
 			}
 		},
