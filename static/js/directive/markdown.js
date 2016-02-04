@@ -10,7 +10,8 @@ app.directive('markdown', function() {
 					var content = angular.copy($scope.content);
 					// marked.setOptions({breaks:true});
 					content = marked(content);
-					content = content.replace(/<table/g, '<table class="table table-bordered"')
+					content = content.replace(/<table/g, '<table class="table table-bordered"');
+					MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
 					$element.empty().append(content);
 				}, true);
 			}
