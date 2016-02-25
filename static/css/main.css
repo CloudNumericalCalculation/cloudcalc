@@ -3,6 +3,9 @@ textarea {
 	font-family: monospace, Consolas, 'Microsoft Yahei';
 	max-height: 214px !important;
 }
+input {
+	font-family: monospace, Consolas, 'Microsoft Yahei';
+}
 
 html, body {
 	background-color: whitesmoke;
