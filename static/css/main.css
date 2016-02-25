@@ -1,5 +1,6 @@
 textarea {
 	resize: none;
+	font-family: monospace, Consolas, 'Microsoft Yahei';
 	max-height: 214px !important;
 }
 
